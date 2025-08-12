@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Verify Email</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            max-width: 500px;
+            width: 90%;
+            margin: 20px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+        .info {
+            background-color: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid #2196F3;
+            padding: 18px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+            color: #34495e;
+            line-height: 1.5;
+        }
+        .info strong {
+            color: #2196F3;
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        input:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #3d8b40;
+        }
+        .error {
+            color: #e74c3c;
+            margin-bottom: 20px;
+            padding: 12px;
+            background-color: rgba(231, 76, 60, 0.1);
+            border-radius: 6px;
+            text-align: center;
+            border-left: 4px solid #e74c3c;
+        }
+        .resend {
+            text-align: center;
+            margin-top: 25px;
+            color: #7f8c8d;
+        }
+        .resend a {
+            color: #2196F3;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .resend a:hover {
+            color: #0d8bf2;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Verify Your Email</h1>
+
+    <div class="info">
+        We've sent a 6-digit verification code to <strong th:text="${email}"></strong>.
+        Please check your inbox and enter the code below.
+    </div>
+
+    <div th:if="${error}" class="error" th:text="${error}"></div>
+
+    <form th:action="@{/verify}" method="post">
+        <input type="hidden" name="email" th:value="${email}">
+
+        <div class="form-group">
+            <label for="otp">Verification Code</label>
+            <input type="text" id="otp" name="otp" required
+                   placeholder="Enter 6-digit code" maxlength="6" pattern="\d{6}"
+                   title="Please enter the 6-digit code">
+        </div>
+
+        <button type="submit">Verify Email</button>
+    </form>
+
+    <div class="resend">
+        Didn't receive the code? <a href="#" onclick="resendOtp()">Resend OTP</a>
+    </div>
+</div>
+
+<script>
+    function resendOtp() {
+        // In a real application, you would call an endpoint to resend OTP
+        alert("A new verification code has been sent to your email.");
+    }
+</script>
+</body>
+</html>
