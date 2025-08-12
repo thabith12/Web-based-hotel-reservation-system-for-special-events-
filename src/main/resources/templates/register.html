@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Register</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -123,28 +123,37 @@
 <body>
 <div class="left-side">
     <div class="left-content">
-        <h2>Welcome Back!</h2>
-        <p>We're delighted to welcome you back to our hotel reservation system. Log in to manage your special event bookings and access exclusive offers.</p>
+        <h2>Join Us!</h2>
+        <p>Create your account to start booking hotels for your special events. Enjoy exclusive member benefits and manage all your reservations in one place.</p>
     </div>
 </div>
 <div class="right-side">
     <div class="container">
-        <h1>Login-Guest</h1>
+        <h1>Register-Guest</h1>
         <div th:if="${error}" class="error" th:text="${error}"></div>
-        <form th:action="@{/login}" method="post">
+        <form th:action="@{/register}" th:object="${user}" method="post">
+            <div class="form-group">
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="fullName" th:field="*{fullName}" required placeholder="Enter your full name">
+            </div>
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required placeholder="Enter your email">
+                <input type="email" id="email" th:field="*{email}" required placeholder="Enter your email">
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required placeholder="Enter your password">
+                <input type="password" id="password" th:field="*{password}" required
+                       placeholder="Create a password (min 6 characters)" minlength="6">
             </div>
-            <button type="submit">Login</button>
+            <div class="form-group">
+                <label for="phoneNumber">Phone Number (Optional):</label>
+                <input type="tel" id="phoneNumber" th:field="*{phoneNumber}"
+                       placeholder="Enter your phone number">
+            </div>
+            <button type="submit">Register</button>
         </form>
         <div class="links">
-            <a th:href="@{/register}">Create an account</a> |
-            <a th:href="@{/forgot-password}">Forgot Password?</a>
+            Already have an account? <a th:href="@{/login}">Sign in</a>
         </div>
     </div>
 </div>
