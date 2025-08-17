@@ -1,5 +1,5 @@
 package com.example.Web_application.repository;
-//thabith make repository
+//rosan make anything
 
 import com.example.Web_application.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
